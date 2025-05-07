@@ -62,6 +62,7 @@ def relation_extraction():
     # 将字典转化为DataFrame
     df_data=pd.DataFrame(links_dict)
     # 这里的df_data就是关系数据了
+    print(df_data)
 
     return df_data
     # relation_extraction函数到此搞定

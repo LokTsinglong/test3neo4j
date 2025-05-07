@@ -23,9 +23,10 @@ class DataToNeo4j(object):
             for m in range(0,len(df_data)):
                 # 打印关系里的buy和sell，where是匹配条件
                 # dataframe里面都是字符串类型的
-                print(list(self.matchcer.match(self.buy).where("_name="+"'"+df_data['buy'][m]+"'")))
-                print(list(self.matchcer.match(self.sell).where("_name="+"'"+df_data['sell'][m]+"'")))
-                rel =Relationship(self.matchcer.match(self.buy).where("_name="+"'"+df_data['buy'][m]+"'").first(), df_data['money'][m], self.matchcer.match(self.sell).where("_name="+"'"+df_data['sell'][m]+"'").first())
+                # 注意_.name是py2neo的语法，字段搜索
+                print(list(self.matcher.match(self.buy).where("_.name="+"'"+df_data['buy'][m]+"'")))
+                print(list(self.matcher.match(self.sell).where("_.name="+"'"+df_data['sell'][m]+"'")))
+                rel =Relationship(self.matcher.match(self.buy).where("_.name="+"'"+df_data['buy'][m]+"'").first(), df_data['money'][m], self.matcher.match(self.sell).where("_.name="+"'"+df_data['sell'][m]+"'").first())
                 self.graph.create(rel)
         except AttributeError as e:
             print( e,m)
